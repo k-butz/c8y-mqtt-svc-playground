@@ -4,7 +4,7 @@ A project to test and showcase the integration between Devices and Cumulocitys M
 
 # Q & A
 
-**Q1: How can I subscribe to data that is sent by Devices?**
+**Q1: How can I subscribe to data sent by Devices?**
 
 A: Below code-block will receive all messages sent by any Device of your tenant. You will find the devices clientID and topic within the consumed message.
 
