@@ -45,7 +45,10 @@ for {
 		"properties", msg.Properties(),
 		"payload", string(msg.Payload()),
 	)
-  // acknowledge the message
+	// e.g.
+	// 2026-05-01T09:59:54+02:00 INF Received new message metadata.id=3045654:722:0 metadata.topic=persistent://t2021486094/mqtt/from-device-partition-0 metadata.key=kobu metadata.producer=pulsar-226-4343284 metadata.eventTime=2026-05-01T09:59:54.733+02:00 metadata.publishTime=2026-05-01T09:59:54.733+02:00 properties="map[clientID:kobu topic:kobu/mqtt-svc/test tx.clientAuthType:BASIC tx.clientUsername:kobu]" payload="my message to MQTT Svc"
+
+	// acknowledge the message
 	if err := consumer.Ack(msg); err != nil {
 		slog.Error("Failed to ack message", "msgID", msg.ID(), "err", err)
 	}
@@ -89,8 +92,9 @@ for {
 **Q3: How do I receive Operations from Core MQTT?**
 
 A: There are two options:
-1) Have a second, separate MQTT Connection. One for Port 9883 for the MQTT Service, another one on Port 8883. All Device Operations will be sent towards the connection on Port 8883.
-2) Enable the "Smart Rest Bridge" on MQTT Service. Within Cumulocity Administration, there is a feature-toggle `mqtt-service.smartrest`. Once this is active, you will receive all Device Operations also via MQTT Service (port 9883). At the moment (April 2026), this is a public-preview feature and not yet in GA. Make sure to read: [https://cumulocity.com/docs/device-integration/mqtt-service/#core-mqtt-support](https://cumulocity.com/docs/device-integration/mqtt-service/#core-mqtt-support)
+1) Have a second, separate MQTT Connection. One for Port 9883 (MQTT Service), another one for 8883 (Core MQTT). All Device Operations will be sent towards the connection on Port 8883 exclusively.
+
+2) Enable the "Smart Rest Bridge" feature on MQTT Service. Within Cumulocity Administration, there is a feature-toggle `mqtt-service.smartrest`. Once this is active, you will receive all Device Operations also via MQTT Service (port 9883). At the moment (April 2026), this is a public-preview feature and not yet in GA. Make sure to read: [https://cumulocity.com/docs/device-integration/mqtt-service/#core-mqtt-support](https://cumulocity.com/docs/device-integration/mqtt-service/#core-mqtt-support)
 
 **Q4: What happens when I enable the Smart Rest Bridge and connect two clients with the same clientID on different ports: 9883 (MQTT Service) and 8883 (Core MQTT)?**
 
