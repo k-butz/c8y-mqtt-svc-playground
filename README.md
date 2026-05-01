@@ -76,7 +76,7 @@ for {
 	select {
 	case <-ticker.C:
 		payload := []byte("my test message towards a device")
-		_, err = producer.Send(context.Background(), &pulsar.ProducerMessage{
+		producer.Send(context.Background(), &pulsar.ProducerMessage{
 			Payload: payload,
 			Properties: map[string]string{
 				"clientID": clientId,
