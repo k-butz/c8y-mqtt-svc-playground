@@ -20,15 +20,11 @@ defer client.Close()
 
 // then consume the messages via the persistent://{tenantid}/mqtt/from-device topic
 // each message contains the clientID and topic within its metadata
-consumer, err := client.Subscribe(pulsar.ConsumerOptions{
+consumer, _ := client.Subscribe(pulsar.ConsumerOptions{
 	Topic:            fmt.Sprintf("persistent://%s/mqtt/from-device", tenantID),
 	SubscriptionName: "go-sub",
 	Type:             pulsar.Shared,
 })
-if err != nil {
-	slog.Error("Failed to subscribe", "topic", topic, "err", err)
-	return
-}
 defer consumer.Close()
 
 for {
