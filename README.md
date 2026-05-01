@@ -4,7 +4,8 @@ A project to test and showcase the integration between Devices and Cumulocitys M
 
 # Q & A
 
-**Q: How can I subscribe to data that is sent by Devices?**
+**Q1: How can I subscribe to data that is sent by Devices?**
+
 A: Below code-block will receive all messages sent by any Device of your tenant. You will find the devices clientID and topic within the consumed message.
 
 ```go
@@ -51,7 +52,7 @@ for {
 }
 ```
 
-**Q: How do I send data towards Devices via MQTT Service?**
+**Q2: How do I send data towards Devices via MQTT Service?**
 
 A: This code-block will send a message to a Device with clientID=kobu on topic=kobu/mqtt-svc/cmds
 
@@ -85,13 +86,13 @@ for {
 }
 ```
 
-**Q: How do I receive Operations from Core MQTT?**
+**Q3: How do I receive Operations from Core MQTT?**
 
 A: There are two options:
 1) Have a second, separate MQTT Connection. One for Port 9883 for the MQTT Service, another one on Port 8883. All Device Operations will be sent towards the connection on Port 8883.
 2) Enable the "Smart Rest Bridge" on MQTT Service. Within Cumulocity Administration, there is a feature-toggle `mqtt-service.smartrest`. Once this is active, you will receive all Device Operations also via MQTT Service (port 9883). At the moment (April 2026), this is a public-preview feature and not yet in GA. Make sure to read: [https://cumulocity.com/docs/device-integration/mqtt-service/#core-mqtt-support](https://cumulocity.com/docs/device-integration/mqtt-service/#core-mqtt-support)
 
-**Q: What happens when I enable the Smart Rest Bridge and connect two clients with the same clientID on different ports: 9883 (MQTT Service) and 8883 (Core MQTT)?**
+**Q4: What happens when I enable the Smart Rest Bridge and connect two clients with the same clientID on different ports: 9883 (MQTT Service) and 8883 (Core MQTT)?**
 
 A: Both connections can co-exist. In this setup you would:
 - Receive all Device Operations on your connections on port 8883 and 9883 in parallel
